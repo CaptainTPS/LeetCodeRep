@@ -353,17 +353,30 @@ public:
         return count;
     }
     
+    //if s is subsequence of t.
+    bool isSubsequence(string s, string t) {
+        if (s.empty()) {
+            return true;
+        }
+        int m = 0;
+        for (int i = 0; i<t.length(); i++) {
+            if (t[i] == s[m]) {
+                m++;
+                if (m == s.length()) {
+                    return true;
+                }
+            }
+            
+        }
+        return false;
+    }
+    
 };
 
 
 
 int main(){
-    //just to test the git
-    //test again
     Solution temp;
-    char a = 'a';
-    char b = 'A';
-    int m = (int)a;
-    bool flag = b < a;
+    
     return 0;
 }
