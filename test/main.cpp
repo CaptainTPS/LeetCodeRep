@@ -13,6 +13,7 @@
 #include <sstream>
 #include <map>
 #include <stack>
+#include <list>
 
 using namespace std;
 
@@ -370,13 +371,133 @@ public:
         }
         return false;
     }
+
+	public:
+		int islandPerimeter(vector<vector<int>>& grid) {
+			int count = 0;
+			for (int i = 0; i < grid.size(); i++)
+			{
+				for (int j = 0; j < grid[i].size(); j++)
+				{
+					if (grid[i][j] == 0)
+					{
+						continue;
+					}
+					if (i - 1 < 0 )
+					{
+						count++;
+					}
+					else if (grid[i - 1][j] == 0)
+					{
+						count++;
+					}
+					if (i + 1 >= grid.size() )
+					{
+						count++;
+					}
+					else if (grid[i + 1][j] == 0)
+					{
+						count++;
+					}
+					if (j - 1 < 0 )
+					{
+						count++;
+					}
+					else if (grid[i][j - 1] == 0)
+					{
+						count++;
+					}
+					if (j + 1 >= grid[i].size())
+					{
+						count++;
+					}
+					else if (grid[i][j + 1] == 0)
+					{
+						count++;
+					}
+				}
+			}
+			return count;
+		}
+
+		bool canWinNim(int n) {
+			n = n % 4;
+			if (n == 1 || n == 2 || n == 3)
+			{
+				return true;
+			}
+			else if (n == 0)
+			{
+				return false;
+			}
+
+			return false;
+		}
     
+		vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+			list<pair<int, int>> temp;
+			list<pair<int, int>>::iterator finder;
+			int j = 0;
+			while (j < people.size())
+			{
+				for (size_t i = 0; i < people.size(); i++)
+				{
+					if (people[i].second != j)
+					{
+						continue;
+					}
+					int count = 0;
+					for (finder = temp.begin(); finder != temp.end(); finder++)
+					{
+						if (finder._Ptr->_Myval.first >= people[i].first )
+						{
+							count++;
+							if (count > people[i].second)
+							{
+								break;
+							}
+						}
+					}
+					temp.insert(finder, people[i]);
+				}
+
+				j++;
+				if (temp.size() == people.size())
+				{
+					break;
+				}
+			}
+
+			vector<pair<int, int>> out;
+			for (finder = temp.begin(); finder != temp.end(); finder++)
+			{
+				out.push_back(finder._Ptr->_Myval);
+				cout << finder._Ptr->_Myval.first << " " << finder._Ptr->_Myval.second << endl;
+			}
+			return out;
+		}
 };
 
 
 
 int main(){
     Solution temp;
-    
-    return 0;
+	pair<int, int> p;
+	vector<pair<int, int>> people;
+	
+	p = pair<int, int>(7, 0);
+	people.push_back(p);
+	p = pair<int, int>(4, 4);
+	people.push_back(p);
+	p = pair<int, int>(7, 1);
+	people.push_back(p);
+	p = pair<int, int>(5, 0);
+	people.push_back(p);
+	p = pair<int, int>(6, 1);
+	people.push_back(p);
+	p = pair<int, int>(5, 2);
+	people.push_back(p);
+
+	temp.reconstructQueue(people);
+	return 0;
 }
