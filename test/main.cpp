@@ -449,7 +449,7 @@ public:
 					int count = 0;
 					for (finder = temp.begin(); finder != temp.end(); finder++)
 					{
-						if (finder._Ptr->_Myval.first >= people[i].first )
+						if (finder->first >= people[i].first )
 						{
 							count++;
 							if (count > people[i].second)
@@ -471,8 +471,8 @@ public:
 			vector<pair<int, int>> out;
 			for (finder = temp.begin(); finder != temp.end(); finder++)
 			{
-				out.push_back(finder._Ptr->_Myval);
-				cout << finder._Ptr->_Myval.first << " " << finder._Ptr->_Myval.second << endl;
+				out.push_back(*finder);
+				//cout << finder->first << " " << finder->second << endl;
 			}
 			return out;
 		}
