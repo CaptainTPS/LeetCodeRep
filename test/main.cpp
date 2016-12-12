@@ -476,28 +476,66 @@ public:
 			}
 			return out;
 		}
+    
+    int minSum(vector<vector<int>>& triangle, int row, int index){
+        int m;
+        if (row == triangle.size() -1) {
+            m = triangle[row][index] > triangle[row][index+1]?triangle[row][index+1]:triangle[row][index];
+        }else{
+            int f =minSum(triangle, row+1, index);
+            int s =minSum(triangle, row+1, index+1);
+            m = f<s?f:s;
+            m += triangle[row][index];
+        }
+        return m;
+    }
+    
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int m;
+        m = minSum(triangle, 0, 0);
+        return m;
+    }
 };
 
 
 
 int main(){
     Solution temp;
-	pair<int, int> p;
-	vector<pair<int, int>> people;
-	
-	p = pair<int, int>(7, 0);
-	people.push_back(p);
-	p = pair<int, int>(4, 4);
-	people.push_back(p);
-	p = pair<int, int>(7, 1);
-	people.push_back(p);
-	p = pair<int, int>(5, 0);
-	people.push_back(p);
-	p = pair<int, int>(6, 1);
-	people.push_back(p);
-	p = pair<int, int>(5, 2);
-	people.push_back(p);
-
-	temp.reconstructQueue(people);
+    vector<vector<int>> tri;
+    vector<int> tt;
+    tt.push_back(2);
+    tri.push_back(tt);
+    
+    tt.clear();
+    tt.push_back(3);
+    tt.push_back(4);
+    tri.push_back(tt);
+    
+    tt.clear();
+    tt.push_back(6);
+    tt.push_back(5);
+    tt.push_back(7);
+    tri.push_back(tt);
+    
+    tt.clear();
+    tt.push_back(4);
+    tt.push_back(1);
+    tt.push_back(8);
+    tt.push_back(3);
+    tri.push_back(tt);
+    
+    /*
+     [[-1],[2,3],[1,-1,-3]] not pass
+     should -1 but -2
+     */
+    int sum = temp.minimumTotal(tri);
+    
 	return 0;
 }
+
+
+
+
+
+
+
