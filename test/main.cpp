@@ -477,10 +477,11 @@ public:
 			return out;
 		}
     
+	//time out
     int minSum(vector<vector<int>>& triangle, int row, int index){
         int m;
         if (row == triangle.size() -1) {
-            m = triangle[row][index] > triangle[row][index+1]?triangle[row][index+1]:triangle[row][index];
+            m = triangle[row][index];
         }else{
             int f =minSum(triangle, row+1, index);
             int s =minSum(triangle, row+1, index+1);
@@ -489,10 +490,29 @@ public:
         }
         return m;
     }
+
     
     int minimumTotal(vector<vector<int>>& triangle) {
-        int m;
-        m = minSum(triangle, 0, 0);
+		int m;
+		//m = minSum(triangle, 0, 0);
+		int size = triangle[triangle.size() - 1].size();
+		int *vec = new int[size];
+		for (int i = 0; i < triangle[triangle.size()-1].size(); i++)
+		{
+			vec[i] = triangle[triangle.size() - 1][i];
+		}
+		for (int i = triangle.size()-2; i >= 0; i--)
+		{
+			for (int j = 0; j < triangle[i].size(); j++)
+			{
+				int t1 = vec[j];
+				int t2 = vec[j + 1];
+				vec[j] = t1 < t2 ? t1 : t2;
+				vec[j] += triangle[i][j];
+			}
+		}
+		m = vec[0];
+		delete[] vec;
         return m;
     }
 };
@@ -503,27 +523,27 @@ int main(){
     Solution temp;
     vector<vector<int>> tri;
     vector<int> tt;
+    tt.push_back(-1);
+    tri.push_back(tt);
+    
+    tt.clear();
     tt.push_back(2);
-    tri.push_back(tt);
-    
-    tt.clear();
     tt.push_back(3);
-    tt.push_back(4);
     tri.push_back(tt);
     
     tt.clear();
-    tt.push_back(6);
-    tt.push_back(5);
-    tt.push_back(7);
+    tt.push_back(1);
+    tt.push_back(-1);
+    tt.push_back(-3);
     tri.push_back(tt);
     
-    tt.clear();
+    /*tt.clear();
     tt.push_back(4);
     tt.push_back(1);
     tt.push_back(8);
     tt.push_back(3);
     tri.push_back(tt);
-    
+    */
     /*
      [[-1],[2,3],[1,-1,-3]] not pass
      should -1 but -2
