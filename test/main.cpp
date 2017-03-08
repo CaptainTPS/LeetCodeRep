@@ -519,7 +519,7 @@ public:
 
 
 
-int main(){
+int maintest(){
     Solution temp;
     vector<vector<int>> tri;
     vector<int> tt;
