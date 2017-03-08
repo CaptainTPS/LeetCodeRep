@@ -14,6 +14,7 @@
 #include <map>
 #include <stack>
 #include <list>
+#include <cmath>
 
 using namespace std;
 
@@ -515,40 +516,92 @@ public:
 		delete[] vec;
         return m;
     }
+    
+    //lc 461
+    int hammingDistance(int x, int y) {
+        int count = 0;
+        for (int i = 0; i<32; i++) {
+            int mask = (int)powf(2, i);
+            int t1 = x& mask;
+            int t2 = y& mask;
+            if (t1 != t2) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    //lc 476
+    int findComplement(int num) {
+        int i = 31;
+        do {
+            int mask = (int)powf(2, i);
+            if ((num & mask )!=0) {
+                break;
+            }
+            i--;
+        } while (i>=0);
+        int re = num ^ ((int)powf(2, i+1) -1);
+        return re;
+    }
+    
+    //lc 419
+    int countBattleships(vector<vector<char>>& board) {
+        int count = 0;
+        for (int row = 0; row < board.size(); row++) {
+            for (int col = 0; col< board[row].size(); col++) {
+                if (board[row][col] == 'X') {
+                    count++;
+                
+                if (col >= 1) {
+                    if (board[row][col -1] == 'X') {
+                        count--;
+                        continue;
+                    }
+                }
+                if (row >= 1) {
+                    if (board[row - 1][col] == 'X') {
+                        count--;
+                    }
+                }
+                }
+            }
+        }
+        return count;
+    }
+    
 };
 
 
 
 int maintest(){
     Solution temp;
-    vector<vector<int>> tri;
-    vector<int> tt;
-    tt.push_back(-1);
-    tri.push_back(tt);
+    vector<char> tt;
+    vector< vector<char>> ttall;
+    tt.clear();
+    tt.push_back('X');
+    tt.push_back('.');
+    tt.push_back('.');
+    tt.push_back('X');
+    ttall.push_back(tt);
     
     tt.clear();
-    tt.push_back(2);
-    tt.push_back(3);
-    tri.push_back(tt);
+    tt.push_back('.');
+    tt.push_back('.');
+    tt.push_back('.');
+    tt.push_back('X');
+    ttall.push_back(tt);
     
     tt.clear();
-    tt.push_back(1);
-    tt.push_back(-1);
-    tt.push_back(-3);
-    tri.push_back(tt);
+    tt.push_back('.');
+    tt.push_back('.');
+    tt.push_back('.');
+    tt.push_back('X');
+    ttall.push_back(tt);
     
-    /*tt.clear();
-    tt.push_back(4);
-    tt.push_back(1);
-    tt.push_back(8);
-    tt.push_back(3);
-    tri.push_back(tt);
-    */
-    /*
-     [[-1],[2,3],[1,-1,-3]] not pass
-     should -1 but -2
-     */
-    int sum = temp.minimumTotal(tri);
+    int m = temp.countBattleships(ttall);
+    
+    
     
 	return 0;
 }
