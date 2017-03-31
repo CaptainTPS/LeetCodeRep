@@ -11,6 +11,11 @@
 
 using namespace std;
 
+int min(int a, int b){
+	int m = a < b ? a : b;
+	return m;
+}
+
 double findKth(int *a, int m, int *b, int n, int k)
 {
     //always assume that m is equal or smaller than n
@@ -52,7 +57,7 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     }
 }
 
-int main(){
+int main4(){
     vector<int> nums1;
     vector<int> nums2;
     nums1.push_back(1);
