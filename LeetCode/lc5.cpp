@@ -68,7 +68,7 @@ string longestPalindrome(string s) {
 }
 
 
-int main(){
+int main5(){
 	string in = "cbbd";
 	string out = longestPalindrome(in);
 	cout << out << endl;
