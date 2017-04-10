@@ -42,7 +42,7 @@ int threeSumClosest(vector<int>& nums, int target) {
 	return sum;
 }
 
-int main(){
+int main16(){
 	int S[3] = { 0,1,2 };
 	vector<int> t;
 	for (int i = 0; i < 3; i++)
