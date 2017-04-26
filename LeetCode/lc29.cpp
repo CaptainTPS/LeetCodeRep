@@ -1,5 +1,13 @@
 #include <cstdlib>
 
+#ifndef INT_MAX
+#define INT_MAX INTMAX_MAX
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN INTMAX_MIN
+#endif
+
 int divide(int dividend, int divisor) {
 	long long a = dividend;
 	long long b = divisor;
