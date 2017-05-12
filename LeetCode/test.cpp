@@ -2,27 +2,34 @@
 #include <cstdio>
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
+#include <string>
+#include <algorithm>
+#include <set>
 
 using namespace std;
 
-struct testS
-{
-	int operator()(int m){
-	
-		cout << "now is " << m << endl;
-		return m;
-	}
-	
-};
+typedef unordered_map<int, int> um;
 
+um tum;
+set<int> ts;
+
+
+bool cmp(char a, char b){
+	if (a - b > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 int maint(){
-	vector<int> a, b;
-	bool tttt = a == b;
-	
-	testS()(5);
-	testS ts;
-	ts(4);
+	string test = "djklsajf";
+
+	sort(test.begin(), test.end(), cmp);
 
 	return 0;
 }
