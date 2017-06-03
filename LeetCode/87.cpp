@@ -51,7 +51,7 @@ public:
     }
 };
 
-int main(){
+int main87(){
 	string s1 = "abc";
 	string s2 = "bca";
 	bool re = Solution().isScramble(s1, s2);
