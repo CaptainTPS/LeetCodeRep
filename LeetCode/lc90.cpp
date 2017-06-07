@@ -61,7 +61,7 @@ public:
 	}
 };
 
-int main(){
+int main90(){
 	vector<int> nums;
 	nums.push_back(0);
 	nums.push_back(1);
