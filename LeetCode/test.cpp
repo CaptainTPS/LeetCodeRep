@@ -2,34 +2,40 @@
 #include <cstdio>
 #include <iostream>
 #include <unordered_set>
-#include <unordered_map>
-#include <string>
+#include <iostream>
+#include <cstdio>
+#include <vector>
 #include <algorithm>
-#include <set>
 
 using namespace std;
 
-typedef unordered_map<int, int> um;
-
-um tum;
-set<int> ts;
-
-
-bool cmp(char a, char b){
-	if (a - b > 0)
-	{
-		return true;
+int main(){
+	long long n;
+	cin >> n;
+	vector<int> all(n, 0);
+	for (long long i = 0; i< n; i++){
+		cin >> all[i];
 	}
-	else
-	{
-		return false;
-	}
-}
 
-int maint(){
-	string test = "djklsajf";
+	long long begin = 1;
+	long long end = 2;
+	bool flag = true;
+	int cnt = 0;
+	do{
+		if (begin >= n)
+			break;
 
-	sort(test.begin(), test.end(), cmp);
-
+		for (long long i = begin; i < min(end, n); i++){
+			if (all[0] < all[i]){
+				flag = false;
+				break;
+			}
+		}
+		if (flag)
+			cnt++;
+		begin = begin << 1;
+		end = end << 1;
+	} while (flag);
+	cout << cnt << endl;
 	return 0;
 }
