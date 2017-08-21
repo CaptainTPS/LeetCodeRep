@@ -54,10 +54,6 @@ public:
 		return result;
 	}
 };
-int main(){
-	Solution282().addOperators("105", 5);
-	return 0;
-}
 
 #if 0
 //not working
