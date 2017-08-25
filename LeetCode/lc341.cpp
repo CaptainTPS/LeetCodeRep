@@ -35,24 +35,9 @@ public:
 		auto cnt = val.second;
 		auto re = ptr->operator[](cnt).getInteger();
 		cnt++;
-		while (cnt >= ptr->size()){
-			st.pop();
-			val = st.top();
-			ptr = val.first;
-			cnt = val.second;
-			cnt++;
-		}
-		st.top().second++;
-		if (!ptr->operator[](cnt).isInteger()){
-			ptr = &(ptr->operator[](cnt).getList());
-			while (!ptr->empty() && !ptr->operator[](0).isInteger()){
-				st.push({ ptr, 0 });
-				ptr = &(ptr->operator[](0).getList());
-			}
-			if (!ptr->empty())
-				st.push({ ptr, 0 });
-		}
+		st.pop();
 
+		addothers(ptr, cnt);
 		return re;
 	}
 
