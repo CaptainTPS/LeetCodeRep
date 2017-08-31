@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Solution {
+class Solution336 {
 public:
 	vector<vector<int>> palindromePairs(vector<string>& words) {
 		unordered_map<string, int> rev;
