@@ -10,7 +10,7 @@ struct TreeNode {
      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class Solution337 {
 public:
 	struct dpNode
 	{
@@ -62,8 +62,10 @@ public:
 	}
 
 	int rob(TreeNode* root) {
-		dpNode dpr(0);
+		dpNode dpr(-1);
 		dfs(root, &dpr);
+		if (dpr.amount == -1)
+			dpr.amount = 0;
 		return dpr.amount;
 	}
 };
