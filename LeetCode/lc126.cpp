@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Solution {
+class Solution126 {
 public:
 	unordered_map<string, unordered_set<string>> adtable;
     unordered_map<string, int> flags;
@@ -128,3 +128,105 @@ int main(){
     Solution().findLadders(data[0], data[1], t);
     return 0;
 }
+
+#if 0
+//use index instead of hash map
+class Solution126{
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        int wordslen = wordList.size();
+        vector<vector<int>> map(wordslen);
+        for(int  i = 0; i< wordslen; i++){
+            for(int j = i + 1; j < wordslen; j++){
+                if(ladder(wordList[i], wordList[j])){
+                    map[i].push_back(j);
+                    map[j].push_back(i);
+                }
+            }
+        }
+
+        vector<set<int>> father(wordslen);
+
+        vector<int> v1, v2, *now = &v1, *next = &v2, *temp;
+        int flag = -1;
+        vector<bool> mark(wordslen, false);
+
+        for(int j =0; j < wordslen; j++){
+            if(ladder(beginWord, wordList[j])){
+                now->push_back(j);
+                mark[j] = true;
+                father[j].insert(-1);
+            }
+            if(endWord == wordList[j])
+                flag = j;
+        }
+        if(flag == -1)
+            return vector<vector<string>>();
+        while(!mark[flag] && !now->empty()){
+            auto copy = mark;
+            for(int i = 0; i < now->size(); i++){
+                int index = now->operator[](i);
+                for(int j = 0; j<map[index].size(); j++){
+                    int to = map[index][j];
+                    if(copy[to])
+                        continue;
+                    mark[to] = true;
+                    father[to].insert(index);
+                    next->push_back(to);
+                }
+            }
+            now->clear();
+            temp = next;
+            next = now;
+            now = temp;
+        }
+
+        vector<vector<string>> result;
+        vector<string> t;
+        recoverPath(father, wordList, flag, t, result, beginWord);
+        return result;
+    }
+
+private:
+    void recoverPath(vector<set<int>>& father, vector<string>& wordList, int now, vector<string>& temp, vector<vector<string>>& result, string& start){
+        if(now == -1){
+            temp.push_back(start);
+            result.push_back(temp);
+            temp.pop_back();
+            reverse(result.back());
+            return;
+        }
+        temp.push_back(wordList[now]);
+        for(auto i = father[now].begin(); i != father[now].end(); i++){
+            int to = *i;
+            recoverPath(father, wordList, to, temp, result, start);
+        }
+        temp.pop_back();
+    }
+
+    void reverse(vector<string>& v){
+        int left = 0;
+        int right = v.size();
+        right--;
+        while(left < right)
+            swap(v[left++], v[right--]);
+    }
+
+
+    bool ladder(string& a, string& b){
+        if(a.length() != b.length())
+            return false;
+        int cnt = 0;
+        for(int i = 0; i<a.length(); i++){
+            if(a[i] != b[i])
+                cnt++;
+            if(cnt >= 2)
+                return false;
+        }
+        if(cnt == 1)
+            return true;
+        return false;
+    }
+};
+
+#endif

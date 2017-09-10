@@ -4,6 +4,53 @@
 
 using namespace std;
 
+#if 1
+//a better version
+struct bld{
+    pair<int, int> range;
+    int h;
+    bld(pair<int, int> a, int b): range(a), h(b){};
+};
+
+bool cmp(bld& a, bld& b){
+    return a.range < b.range;
+}
+
+class Solution {
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        int len = buildings.size();
+        vector<bld> all;
+        for(int i = 0; i< len; i++){
+            auto& x = buildings[i];
+            all.push_back(bld({x[0],x[1]}, x[2]));
+            all.push_back(bld({x[1],x[1]}, 0));
+        }
+
+        sort(all.begin(), all.end(), cmp);
+        vector<pair<int,int>> result;
+        priority_queue<pair<int, int>> pq;
+        int preh = 0;
+        for(int i = 0; i<all.size();){
+            int now = all[i].range.first;
+            while(!pq.empty() && pq.top().second <= now){
+                pq.pop();
+            }
+            while(i < all.size() && all[i].range.first == now){
+                pq.push({all[i].h, all[i].range.second});
+                i++;
+            }
+            int nowh = pq.top().first;
+            if(nowh != preh){
+                result.push_back({now, nowh});
+            }
+            preh = nowh;
+        }
+        return result;
+    }
+};
+#else
+
 class Solution218 {
 public:
 	struct onechange{
@@ -66,3 +113,5 @@ public:
 		return result;
 	}
 };
+
+#endif

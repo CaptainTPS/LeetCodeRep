@@ -6,6 +6,50 @@
 '*' Matches any sequence of characters(including the empty sequence).
 */
 
+#if 0
+
+//a better one
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+	int sptr = 0;
+	int pptr = 0;
+	int sstart = -1;
+	int pstart = -1;
+	while(sptr < s.length()){
+	if(pptr < p.length() && (s[sptr] == p[pptr] || p[pptr] ==’?’)){
+	sptr++;
+	pptr++;
+	continue;
+}
+if(pptr < p.length() && p[pptr] ==’*’){
+	pstart = pptr;
+	sstart = sptr;
+	pptr++;
+continue;
+}
+if(pptr >= p.length() || s[sptr] != p[pptr]){
+	if(pstart >=0){
+	pptr = pstart;
+	sptr = sstart + 1;
+}else{
+	return false;
+}
+}
+}
+while(pptr < p.length() && p[pptr] == ‘*’)
+	pptr++;
+if(sptr == s.legnth() && pptr == p.length())
+	return true;
+else
+	return false;
+    }
+};
+
+
+
+#endif
+
 using std::string;
 namespace lc44{
 	bool isMatchT(string s, string p) 
