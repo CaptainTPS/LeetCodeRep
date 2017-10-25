@@ -8,7 +8,7 @@ public:
         for(int i = 0; i< input.size(); i++){
         	int le = 1;
         	while(input[i] == '\t'){
-        		le++;
+        		le++; i++;
         	}
 
         	bool isfile = false;
@@ -16,11 +16,11 @@ public:
         	while(i < input.size() && input[i] != '\n'){
         		if(input[i] == '.')
         			isfile = true;
-        		cnt++;
+        		cnt++; i++;
         	}
 
         	if(isfile){
-        		maxlen = max(maxlen, levels[le - 1] + cnt + 1);
+        		maxlen = max(maxlen, levels[le - 1] + cnt);
         	}else{
         		levels[le] = levels[le - 1] + cnt + 1;
         	}
