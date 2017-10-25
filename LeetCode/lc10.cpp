@@ -1,16 +1,16 @@
 #include <cstdlib>
 #include <string>
-#include <regex>
+#iclangnclude <regex>
 #include <iostream>
 
 using namespace std;
 
-#if 0
+#if 1
 //a better dp solution
 class Solution {
 public:
 	bool isMatch(string s, string p) {
-		vector<vector<bool>> dp(s.length() + 1, vector<bool>(p.length()));
+		vector<vector<bool>> dp(s.length() + 1, vector<bool>(p.length() + 1));
 		dp[0][0] = true;
 		for(int i = 1; i<=s.length(); i++){
 			dp[i][0] = false;
@@ -26,7 +26,7 @@ public:
 		for(int i = 1; i<=s.length(); i++){
 			for(int j = 1; j <= p.length() ; j++){
 				if(p[j-1] == ‘*’){
-					dp[i][j] = dp[i][j-2] || ((s[i-1] = p[j-2]  || p[j-1] ==’.’ ) && dp[i-1][j]);
+					dp[i][j] = dp[i][j-2] || ((s[i-1] == p[j-2]  || p[j-1] ==’.’ ) && dp[i-1][j]);
 				}else{
 					dp[i][j] = (p[j-1]==s[i-1] || p[j-1] ==’.’) && dp[i-1][j-1];
 				}
