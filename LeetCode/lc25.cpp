@@ -24,34 +24,40 @@ struct ListNode {
 //a const memory solution
 class Solution {
 public:
-    ListNode* reverseKGroup(ListNode* head, int k) {
-    	typedef ListNode* nptr;
-    	ListNode b(0);
-    	nptr base = &b;
-    	base->next = head;
-    	nptr ptr1, ptr2;
-    	ptr1 = base;
-    	ptr2 = head;
-    	while(1){
-    		int cnt = 0;
-    		while(ptr2 != NULL && cnt < k){
-    			cnt++:
-    			ptr2 = ptr2->next;
-    		}
-    		if(cnt < k)
-    			break;
+	ListNode* reverseKGroup(ListNode* head, int k) {
+		typedef ListNode* nptr;
+		ListNode b(0);
+		nptr base = &b;
+		nptr ptr1, ptr2;
+		ptr1 = ptr2 = head;
+		while (1){
+			int cnt = 0;
+			ptr1 = ptr2;
+			while (ptr2 != NULL && cnt < k){
+				cnt++;
+				ptr2 = ptr2->next;
+			}
+			if (cnt < k)
+				break;
 
-    		nptr t1 = ptr1, t2, t3;
-    		while(ptr1->next != ptr2){
-    			ptr1 = ptr1->next;
-    			t3 = ptr1->next;
-    			t2 = t1->next;
-    			t1->next = ptr1;
-    			ptr1
-    		}
-    	}  
-    }
+			nptr tail1 = ptr1, swap2, next3;
+			while (ptr1 != ptr2){
+				next3 = ptr1->next;
+				ptr1->next = NULL;
+
+				swap2 = base->next;
+				base->next = ptr1;
+				ptr1->next = swap2;
+
+				ptr1 = next3;
+			}
+			base = tail1;
+		}
+		base->next = ptr1;
+		return b.next;
+	}
 };
+
 #else
 
 
