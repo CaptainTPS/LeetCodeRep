@@ -20,7 +20,7 @@ public:
         	}
 
         	if(isfile){
-        		maxlen = max(maxlen, levels[le - 1] + cnt + 1);
+        		maxlen = max(maxlen, levels[le - 1] + cnt);
         	}else{
         		levels[le] = levels[le - 1] + cnt + 1;
         	}
